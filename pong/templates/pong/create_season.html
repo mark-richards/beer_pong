@@ -1,0 +1,29 @@
+{% load staticfiles %}
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/static/css/pong.css"/>
+        <script type="text/javascript" src="/static/js/pong.js"></script>
+    </head>
+    <body>
+        <div>
+            <h1>Generate Season</h1>
+            <h2><a href="/">Home</a></h2>
+        </div>
+        <form action="/create-season" method="post">
+            {% csrf_token %}
+            {{ create_season_form }}
+            {{ team_formset.management_form }}
+
+            {% for team_form in team_formset %}
+                <div class="team-formset">
+                {{ team_form }}
+                </div>
+            {% endfor %}
+
+            <br>
+            <input type="submit" value="Generate Season" />
+        </form>
+    </body>
+</html>
+

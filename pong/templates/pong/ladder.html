@@ -1,0 +1,32 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/static/css/pong.css"/>
+    </head>
+    <body>
+        <div>
+            <h1>Ladder</h1>
+            <h2><a href="/">Home</a></h2>
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <th>Team</th>
+                    <th>Played</th>
+                    <th>Wins</th>
+                    <th>Lost</th>
+                    <th>Cups</th>
+                </tr>
+                {% for line in ladder_list %}
+                <tr>
+                    <td>{{ line.team }}</td>
+                    <td>{{ line.played }}</td>
+                    <td>{{ line.wins }}</td>
+                    <td>{{ line.losses }}</td>
+                    <td>{{ line.cup_diff }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </body>
+</html>
