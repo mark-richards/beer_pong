@@ -1,7 +1,5 @@
 from .models import Match, Season, Team
 
-# teams = ["Richo", "Pmac", "Matt", "Kappaz", "Garter", "Melons", "Lester", "Chief", "Melbourne", "Cats", "Dons", "Tigers", "GWS", "BEEECCCC"]
-# teams = ["Richo", "Pmac", "Matt", "Kappaz", "Bec", "Kram", "Lester", "Garter"]
 # teams = [
 #     "Test1",
 #     "Test2",
@@ -18,8 +16,6 @@ from .models import Match, Season, Team
 #     "Test13",
 #     "Test14"
 # ]
-
-
 
 
 def get_round_one(number_of_teams, fixture_list):
