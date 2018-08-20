@@ -3,6 +3,7 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="/static/css/pong.css"/>
+        <script type="text/javascript" src="/static/js/jquery.js"></script>
         <script type="text/javascript" src="/static/js/pong.js"></script>
     </head>
     <body>
@@ -16,14 +17,18 @@
             {{ team_formset.management_form }}
 
             {% for team_form in team_formset %}
-                <div class="team-formset">
+                <div class="team-formset form-row">
                 {{ team_form }}
+                </div>
+                <div class="input-group-append">
+                    <input type="button" class="btn btn-success add-form-row" value="+"></input>
                 </div>
             {% endfor %}
 
             <br>
             <input type="submit" value="Generate Season" />
         </form>
+    <div id="abc"></div>
     </body>
 </html>
 
