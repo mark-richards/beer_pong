@@ -5,7 +5,7 @@
     </head>
     <body>
         <div>
-            <h1>Fixture</h1>
+            <h1>Match</h1>
             <h2><a href="/">Home</a></h2>
         </div>
         <div>
@@ -16,18 +16,16 @@
                     <th>Away</th>
                     <th>Home Cups Remaining</th>
                     <th>Away Cups Remaining</th>
-                    <th></th>
                 </tr>
-                {% for match in matches %}
                 <tr>
                     <td>{{ match.round }}</td>
                     <td>{{ match.home_team }}</td>
                     <td>{{ match.away_team }}</td>
+                    <td><input type="text" value="{{ match.home_cups_remaining|default_if_none:'' }}"></td>
+                    <td><input type="text" value="{{ match.away_cups_remaining|default_if_none:'' }}"></td>
                     <td>{{ match.home_cups_remaining|default_if_none:"" }}</td>
                     <td>{{ match.away_cups_remaining|default_if_none:"" }}</td>
-                    <td><a href="{{ match.id }}">Edit</a></td>
                 </tr>
-                {% endfor %}
             </table>
         </div>
     </body>
