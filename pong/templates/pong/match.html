@@ -23,10 +23,9 @@
                     <td>{{ match.away_team }}</td>
                     <td><input type="text" value="{{ match.home_cups_remaining|default_if_none:'' }}"></td>
                     <td><input type="text" value="{{ match.away_cups_remaining|default_if_none:'' }}"></td>
-                    <td>{{ match.home_cups_remaining|default_if_none:"" }}</td>
-                    <td>{{ match.away_cups_remaining|default_if_none:"" }}</td>
                 </tr>
             </table>
+            <input type="button" value="Save">
         </div>
     </body>
 </html>
