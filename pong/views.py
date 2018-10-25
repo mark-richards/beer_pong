@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.forms import ModelForm
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from .models import Match, Season
-from .forms import CreateSeasonForm
+from .forms import CreateSeasonForm, MatchForm
 from .forms import TeamFormSet
 
 from .ladder import get_ladder_data
@@ -14,11 +15,17 @@ def match_list(request, season_id):
         'matches': matches
     })
 
+
 def edit_match(request, season_id, match_id):
     match = get_object_or_404(Match, pk=match_id)
-    return render(request, 'pong/match.html', {
-        'match': match
-    })
+    if request.method == "POST":
+        form = MatchForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('pong/match.html', {'match': form})
+    else:
+        form = MatchForm(instance=match)
+    return render(request, 'pong/match.html', {'match': form})
 
 
 def ladder_view(request, season_id):
