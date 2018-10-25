@@ -1,19 +1,42 @@
 from django.forms import ModelForm
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
+from django.views import generic
+from django.views.generic.edit import UpdateView
 from .models import Match, Season
 from .forms import CreateSeasonForm, MatchForm
 from .forms import TeamFormSet
 
 from .ladder import get_ladder_data
-from.berger import generate_season
+from .berger import generate_season
 
 
-def match_list(request, season_id):
-    matches = Match.objects.filter(season=season_id).order_by('round')
-    return render(request, 'pong/match_list.html', {
-        'matches': matches
+class SeasonList(generic.ListView):
+    template_name = 'pong/season_list.html'
+    context_object_name = 'seasons'
+
+    def get_queryset(self):
+        return Season.objects.all().order_by('-id')
+
+
+class MatchListView(generic.ListView):
+    model = Season
+    context_object_name = 'matches'
+    template_name = 'pong/match_list.html'
+
+    def get_queryset(self):
+        return Match.objects.filter(season__pk="WHAT DO I ENTER HERE???").order_by('round')
+
+def ladder_view(request, season_id):
+
+    return render(request, 'pong/ladder.html', {
+        'ladder_list': get_ladder_data(season_id)
     })
+
+
+class MatchUpdate(UpdateView):
+    model = Match
+    fields = ['round', 'home_team', 'away_team', 'home_cups_remaining', 'away_cups_remaining']
 
 
 def edit_match(request, season_id, match_id):
@@ -26,21 +49,6 @@ def edit_match(request, season_id, match_id):
     else:
         form = MatchForm(instance=match)
     return render(request, 'pong/match.html', {'match': form})
-
-
-def ladder_view(request, season_id):
-
-    return render(request, 'pong/ladder.html', {
-        'ladder_list': get_ladder_data(season_id)
-    })
-
-
-def season_list(request):
-    seasons = Season.objects.all().order_by('-id')
-    return render(request, 'pong/season_list.html', {
-        'seasons': seasons
-    })
-
 
 def create_season_view(request):
     if request.method == 'POST':
