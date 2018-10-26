@@ -10,7 +10,7 @@
             <h2><a href="/">Home</a></h2>
         </div>
         <div>
-            <form method="post" action="">
+            <form method="post">
                 {% csrf_token %}
                 <table>
                     <tr>
@@ -24,13 +24,11 @@
                         <td>{{ match.round }}</td>
                         <td>{{ match.home_team }}</td>
                         <td>{{ match.away_team }}</td>
-                        <td>{{ match.home_cups_remaining|default_if_none:'' }}</td>
-                        <td>{{ match.away_cups_remaining|default_if_none:'' }}</td>
-                        <!--<td><input type="text" value="{{ match.home_cups_remaining|default_if_none:'' }}"></td>-->
-                        <!--<td><input type="text" value="{{ match.away_cups_remaining|default_if_none:'' }}"></td>-->
+                        <td><input type="text" value="{{ match.home_cups_remaining|default_if_none:'' }}"></td>
+                        <td><input type="text" value="{{ match.away_cups_remaining|default_if_none:'' }}"></td>
                     </tr>
                 </table>
-                <input type="submit" value="Save">
+                <button type="submit">Save</button>
             </form>
         </div>
     {% endblock %}

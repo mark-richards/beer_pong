@@ -25,7 +25,8 @@ class MatchListView(generic.ListView):
     template_name = 'pong/match_list.html'
 
     def get_queryset(self):
-        return Match.objects.filter(season__pk="WHAT DO I ENTER HERE???").order_by('round')
+        return Match.objects.filter(season__pk=self.kwargs["season_pk"]).order_by('round')
+
 
 def ladder_view(request, season_id):
 
@@ -36,19 +37,21 @@ def ladder_view(request, season_id):
 
 class MatchUpdate(UpdateView):
     model = Match
+    template_name = 'pong/match.html'
     fields = ['round', 'home_team', 'away_team', 'home_cups_remaining', 'away_cups_remaining']
 
 
-def edit_match(request, season_id, match_id):
-    match = get_object_or_404(Match, pk=match_id)
-    if request.method == "POST":
-        form = MatchForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('pong/match.html', {'match': form})
-    else:
-        form = MatchForm(instance=match)
-    return render(request, 'pong/match.html', {'match': form})
+# def edit_match(request, season_id, match_id):
+#     match = get_object_or_404(Match, pk=match_id)
+#     if request.method == "POST":
+#         form = MatchForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('pong/match.html', {'match': form})
+#     else:
+#         form = MatchForm(instance=match)
+#     return render(request, 'pong/match.html', {'match': form})
+
 
 def create_season_view(request):
     if request.method == 'POST':

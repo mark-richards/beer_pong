@@ -25,7 +25,7 @@
                     <td>{{ match.away_team }}</td>
                     <td>{{ match.home_cups_remaining|default_if_none:"" }}</td>
                     <td>{{ match.away_cups_remaining|default_if_none:"" }}</td>
-                    <td><a href="{{ match.id }}">Edit</a></td>
+                    <td><a href="/{{ match.season.pk  }}/{{ match.pk }}">Edit</a></td>
                 </tr>
                 {% endfor %}
             </table>
