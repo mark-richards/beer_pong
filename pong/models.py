@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 
 class Match(models.Model):
@@ -12,6 +13,9 @@ class Match(models.Model):
 
     def __str__(self):
             return '%s Round %s: %s v %s' % (self.season, self.round, self.home_team, self.away_team)
+
+    def get_absolute_url(self):
+        return reverse('match_list', kwargs={"season_pk": self.season.pk})
 
 
 class Team(models.Model):

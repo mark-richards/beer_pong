@@ -24,11 +24,12 @@
                         <td>{{ match.round }}</td>
                         <td>{{ match.home_team }}</td>
                         <td>{{ match.away_team }}</td>
-                        <td><input type="text" value="{{ match.home_cups_remaining|default_if_none:'' }}"></td>
-                        <td><input type="text" value="{{ match.away_cups_remaining|default_if_none:'' }}"></td>
+                        <td><input type="text" name="home_cups_remaining" value="{{ match.home_cups_remaining|default_if_none:'' }}"></td>
+                        <td><input type="text" name="away_cups_remaining" value="{{ match.away_cups_remaining|default_if_none:'' }}"></td>
                     </tr>
                 </table>
                 <button type="submit">Save</button>
+                {{ form.errors }}
             </form>
         </div>
     {% endblock %}

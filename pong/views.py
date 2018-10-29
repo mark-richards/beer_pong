@@ -38,19 +38,7 @@ def ladder_view(request, season_id):
 class MatchUpdate(UpdateView):
     model = Match
     template_name = 'pong/match.html'
-    fields = ['round', 'home_team', 'away_team', 'home_cups_remaining', 'away_cups_remaining']
-
-
-# def edit_match(request, season_id, match_id):
-#     match = get_object_or_404(Match, pk=match_id)
-#     if request.method == "POST":
-#         form = MatchForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('pong/match.html', {'match': form})
-#     else:
-#         form = MatchForm(instance=match)
-#     return render(request, 'pong/match.html', {'match': form})
+    form_class = MatchForm
 
 
 def create_season_view(request):
