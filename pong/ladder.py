@@ -1,4 +1,5 @@
-from .models import Match
+from .models import Match, Team
+import pprint
 
 
 def get_team_dict(team_name):
@@ -14,7 +15,7 @@ def get_team_dict(team_name):
 
 
 def get_ladder_data(season_id):
-    matches = Match.objects.filter(season=season_id, home_cups_remaining__isnull=False, away_cups_remaining__isnull=False)
+    matches = Match.objects.filter(season=season_id)
     data = {}
 
     for match in matches:
@@ -23,7 +24,10 @@ def get_ladder_data(season_id):
         if match.away_team.name not in data:
             data[match.away_team.name] = get_team_dict(match.away_team.name)
 
-        if match.home_cups_remaining < match.away_cups_remaining:
+        if match.home_cups_remaining is None:
+            pass
+
+        elif match.home_cups_remaining < match.away_cups_remaining:
             data[match.home_team.name]['played'] += 1
             data[match.home_team.name]['wins'] += 1
             data[match.away_team.name]['played'] += 1
@@ -41,6 +45,7 @@ def get_ladder_data(season_id):
 
     results = list(data.values())
     results.sort(key=lambda i: (i['wins'],i['cup_diff']), reverse=True)
+    pprint.pprint(results)
     return results
 
 
