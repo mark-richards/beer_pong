@@ -20,12 +20,16 @@ class SeasonList(generic.ListView):
 
 
 class MatchListView(generic.ListView):
-    model = Season
     context_object_name = 'matches'
     template_name = 'pong/match_list.html'
 
     def get_queryset(self):
         return Match.objects.filter(season__pk=self.kwargs["season_pk"]).order_by('round')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=None, **kwargs)
+        context['season'] = Season.objects.get(pk=self.kwargs["season_pk"])
+        return context
 
 
 def ladder_view(request, season_id):

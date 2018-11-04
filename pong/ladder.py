@@ -45,7 +45,6 @@ def get_ladder_data(season_id):
 
     results = list(data.values())
     results.sort(key=lambda i: (i['wins'],i['cup_diff']), reverse=True)
-    pprint.pprint(results)
     return results
 
 

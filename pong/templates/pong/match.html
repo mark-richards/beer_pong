@@ -1,37 +1,35 @@
+{% extends 'base.html' %}
 {% load staticfiles %}
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="/static/css/pong.css"/>
-    </head>
-    {% block content %}
-    <body>
-        <div>
-            <h1>Match</h1>
-            <h2><a href="/">Home</a></h2>
-        </div>
-        <div>
-            <form method="post">
-                {% csrf_token %}
-                <table>
-                    <tr>
-                        <th>Round</th>
-                        <th>Home</th>
-                        <th>Away</th>
-                        <th>Home Cups Remaining</th>
-                        <th>Away Cups Remaining</th>
-                    </tr>
-                    <tr>
-                        <td>{{ match.round }}</td>
-                        <td>{{ match.home_team }}</td>
-                        <td>{{ match.away_team }}</td>
-                        <td><input type="text" name="home_cups_remaining" value="{{ match.home_cups_remaining|default_if_none:'' }}"></td>
-                        <td><input type="text" name="away_cups_remaining" value="{{ match.away_cups_remaining|default_if_none:'' }}"></td>
-                    </tr>
-                </table>
-                <button type="submit">Save</button>
-                {{ form.errors }}
-            </form>
-        </div>
-    {% endblock %}
-    </body>
-</html>
+
+{% block breadcrumb %}
+    <li><a href="{% url 'season_list' %}">Home</a></li>
+    <li><a href="{% url 'match_list' match.season.pk %}">{{ match.season.name }}</a></li>
+    <li>{{ match.home_team }} vs {{ match.away_team }}</li>
+{% endblock %}
+
+{% block content %}
+<div>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>Round</th>
+                <th>Home</th>
+                <th>Away</th>
+                <th>Home Cups Remaining</th>
+                <th>Away Cups Remaining</th>
+            </tr>
+            <tr>
+                <td>{{ match.round }}</td>
+                <td>{{ match.home_team }}</td>
+                <td>{{ match.away_team }}</td>
+                <td><input type="text" name="home_cups_remaining" value="{{ match.home_cups_remaining|default_if_none:'' }}"></td>
+                <td><input type="text" name="away_cups_remaining" value="{{ match.away_cups_remaining|default_if_none:'' }}"></td>
+            </tr>
+        </table>
+        <button type="submit">Save</button>
+        {{ form.errors }}
+    </form>
+</div>
+{% endblock %}
+

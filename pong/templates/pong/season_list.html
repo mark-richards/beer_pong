@@ -1,28 +1,27 @@
+{% extends 'base.html' %}
 {% load staticfiles %}
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="/static/css/pong.css"/>
-    </head>
-    <body>
-        <div>
-            <h1>Pong Generator</h1>
-        </div>
-        <div>
-        <div class="page-header">
-            <a href="{% url 'create_season_view' %}">Create Season</a>
-        </div>
-            <table>
-                <tr>
-                    <th id="season_header" colspan="3">Seasons</th>
-                </tr>
-                {% for season in seasons %}
-                <tr>
-                    <td>{{ season.name }}</td>
-                    <td><a href="/{{ season.id }}/ladder">Ladder</a></td>
-                    <td><a href="/{{ season.id }}/fixture">Fixture</a></td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-    </body>
-</html>
+
+{% block breadcrumb %}
+    <li>Season List</li>
+{% endblock %}
+
+
+{% block content %}
+<div>
+<div class="page-header">
+    <a href="{% url 'create_season_view' %}">Create Season</a>
+</div>
+    <table>
+        <tr>
+            <th id="season_header" colspan="3">Seasons</th>
+        </tr>
+        {% for season in seasons %}
+        <tr>
+            <td>{{ season.name }}</td>
+            <td><a href="/{{ season.id }}/ladder">Ladder</a></td>
+            <td><a href="/{{ season.id }}/fixture">Fixture</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

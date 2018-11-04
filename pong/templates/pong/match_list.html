@@ -1,35 +1,30 @@
+{% extends 'base.html' %}
 {% load staticfiles %}
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="/static/css/pong.css"/>
-    </head>
-    <body>
-        <div>
-            <h1>Fixture</h1>
-            <h2><a href="/">Home</a></h2>
-            <!--<h2><a href="{% url 'season_list'  %}">{{ board.name }}</a></h2>-->
-        </div>
-        <div>
-            <table>
-                <tr>
-                    <th>Round</th>
-                    <th>Home</th>
-                    <th>Away</th>
-                    <th>Home Cups Remaining</th>
-                    <th>Away Cups Remaining</th>
-                    <th></th>
-                </tr>
-                {% for match in matches %}
-                <tr>
-                    <td>{{ match.round }}</td>
-                    <td>{{ match.home_team }}</td>
-                    <td>{{ match.away_team }}</td>
-                    <td>{{ match.home_cups_remaining|default_if_none:"" }}</td>
-                    <td>{{ match.away_cups_remaining|default_if_none:"" }}</td>
-                    <td><a href="/{{ match.season.pk  }}/{{ match.pk }}">Edit</a></td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-    </body>
-</html>
+
+{% block breadcrumb %}
+    <li><a href="{% url 'season_list' %}">Home</a></li>
+    <li>{{ season.name }}</li>
+{% endblock %}
+
+{% block content %}
+<table>
+    <tr>
+        <th>Round</th>
+        <th>Home</th>
+        <th>Away</th>
+        <th>Home Cups Remaining</th>
+        <th>Away Cups Remaining</th>
+        <th></th>
+    </tr>
+    {% for match in matches %}
+    <tr>
+        <td>{{ match.round }}</td>
+        <td>{{ match.home_team }}</td>
+        <td>{{ match.away_team }}</td>
+        <td>{{ match.home_cups_remaining|default_if_none:"" }}</td>
+        <td>{{ match.away_cups_remaining|default_if_none:"" }}</td>
+        <td><a href="/{{ match.season.pk  }}/{{ match.pk }}">Edit</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
