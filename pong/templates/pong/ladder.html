@@ -1,32 +1,35 @@
+{% extends 'base.html' %}
 {% load staticfiles %}
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="/static/css/pong.css"/>
-    </head>
-    <body>
-        <div>
-            <h1>Ladder</h1>
-            <h2><a href="/">Home</a></h2>
-        </div>
-        <div>
-            <table>
-                <tr>
-                    <th>Team</th>
-                    <th>Played</th>
-                    <th>Wins</th>
-                    <th>Lost</th>
-                    <th>Cups</th>
-                </tr>
-                {% for line in ladder_list %}
-                <tr>
-                    <td>{{ line.team }}</td>
-                    <td>{{ line.played }}</td>
-                    <td>{{ line.wins }}</td>
-                    <td>{{ line.losses }}</td>
-                    <td>{{ line.cup_diff }}</td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-    </body>
-</html>
+
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="{% url 'season_list' %}">Home</a></li>
+    <li class="breadcrumb-item active">{{ season.name }}</li>
+{% endblock %}
+
+{% block content %}
+<div>
+
+    <table class="table">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Team</th>
+                <th>Played</th>
+                <th>Wins</th>
+                <th>Lost</th>
+                <th>Cups</th>
+                <th></th>
+            </tr>
+        </thead>
+        {% for line in ladder_list %}
+        <tr>
+            <td>{{ line.team }}</td>
+            <td>{{ line.played }}</td>
+            <td>{{ line.wins }}</td>
+            <td>{{ line.losses }}</td>
+            <td>{{ line.cup_diff }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

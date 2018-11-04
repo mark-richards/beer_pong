@@ -1,33 +1,27 @@
+{% extends 'base.html' %}
 {% load staticfiles %}
 
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="/static/css/pong.css"/>
-        <script type="text/javascript" src="/static/js/jquery.js"></script>
-        <script type="text/javascript" src="/static/js/pong.js"></script>
-    </head>
-    <body>
-        <div>
-            <h1>Generate Season</h1>
-            <h2><a href="/">Home</a></h2>
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="{% url 'season_list' %}">Home</a></li>
+{% endblock %}
+
+{% block content %}
+<form action="/create-season" method="post">
+    {% csrf_token %}
+    {{ create_season_form }}
+    {{ team_formset.management_form }}
+
+    {% for team_form in team_formset %}
+        <div class="team-formset form-row">
+        {{ team_form }}
         </div>
-        <form action="/create-season" method="post">
-            {% csrf_token %}
-            {{ create_season_form }}
-            {{ team_formset.management_form }}
+        <div class="input-group-append">
+            <input type="button" class="btn btn-success add-form-row" value="+"></input>
+        </div>
+    {% endfor %}
 
-            {% for team_form in team_formset %}
-                <div class="team-formset form-row">
-                {{ team_form }}
-                </div>
-                <div class="input-group-append">
-                    <input type="button" class="btn btn-success add-form-row" value="+"></input>
-                </div>
-            {% endfor %}
-
-            <br>
-            <input type="submit" value="Generate Season" />
-        </form>
-    </body>
-</html>
+    <br>
+    <button class="btn btn-primary" type="submit">Generate Season</button>
+</form>
+{% endblock %}
 

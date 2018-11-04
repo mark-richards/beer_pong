@@ -1,6 +1,4 @@
-from .models import Match, Team
-import pprint
-
+from .models import Match
 
 def get_team_dict(team_name):
     return {
@@ -29,19 +27,19 @@ def get_ladder_data(season_id):
 
         elif match.home_cups_remaining < match.away_cups_remaining:
             data[match.home_team.name]['played'] += 1
-            data[match.home_team.name]['wins'] += 1
+            data[match.away_team.name]['wins'] += 1
             data[match.away_team.name]['played'] += 1
-            data[match.away_team.name]['losses'] += 1
-            data[match.home_team.name]['cup_diff'] += match.away_cups_remaining
-            data[match.away_team.name]['cup_diff'] -= match.away_cups_remaining
+            data[match.home_team.name]['losses'] += 1
+            data[match.home_team.name]['cup_diff'] -= match.away_cups_remaining
+            data[match.away_team.name]['cup_diff'] += match.away_cups_remaining
 
         elif match.home_cups_remaining > match.away_cups_remaining:
             data[match.away_team.name]['played'] += 1
-            data[match.away_team.name]['wins'] += 1
+            data[match.home_team.name]['wins'] += 1
             data[match.home_team.name]['played'] += 1
-            data[match.home_team.name]['losses'] += 1
-            data[match.home_team.name]['cup_diff'] -= match.home_cups_remaining
-            data[match.away_team.name]['cup_diff'] += match.home_cups_remaining
+            data[match.away_team.name]['losses'] += 1
+            data[match.home_team.name]['cup_diff'] += match.home_cups_remaining
+            data[match.away_team.name]['cup_diff'] -= match.home_cups_remaining
 
     results = list(data.values())
     results.sort(key=lambda i: (i['wins'],i['cup_diff']), reverse=True)

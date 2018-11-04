@@ -32,17 +32,18 @@ class MatchListView(generic.ListView):
         return context
 
 
-def ladder_view(request, season_id):
-
-    return render(request, 'pong/ladder.html', {
-        'ladder_list': get_ladder_data(season_id)
-    })
-
-
 class MatchUpdate(UpdateView):
     model = Match
     template_name = 'pong/match.html'
     form_class = MatchForm
+
+
+def ladder_view(request, season_id):
+
+    return render(request, 'pong/ladder.html', {
+        'ladder_list': get_ladder_data(season_id),
+        'season': Season.objects.get(pk=season_id)
+    })
 
 
 def create_season_view(request):
