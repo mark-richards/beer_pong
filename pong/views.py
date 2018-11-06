@@ -1,5 +1,4 @@
-from django.forms import ModelForm
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.views.generic.edit import UpdateView
