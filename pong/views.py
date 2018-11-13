@@ -45,7 +45,6 @@ def ladder_view(request, season_id):
         'season': Season.objects.get(pk=season_id)
     })
 
-
 def create_season_view(request):
     if request.method == 'POST':
         create_season_form = CreateSeasonForm(request.POST)
