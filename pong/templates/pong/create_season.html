@@ -2,26 +2,35 @@
 {% load staticfiles %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item"><a href="{% url 'season_list' %}">Home</a></li>
+<li class="breadcrumb-item"><a href="{% url 'season_list' %}">Home</a></li>
 {% endblock %}
 
 {% block content %}
 <form action="/create-season" method="post">
     {% csrf_token %}
-    {{ create_season_form }}
-    {{ team_formset.management_form }}
-
-    {% for team_form in team_formset %}
+    <div class="form-group">
+        <div class="form-row">
+            {{ create_season_form }}
+        </div>
+        {{ team_formset.management_form }}
+        {% for team_form in team_formset %}
         <div class="team-formset form-row">
-        {{ team_form }}
+            {{ team_form }}
         </div>
-        <div class="input-group-append">
-            <input type="button" class="btn btn-success add-form-row" value="+"></input>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 
     <br>
     <button class="btn btn-primary" type="submit">Generate Season</button>
 </form>
-{% endblock %}
 
+<script>
+    $('.team-formset').formset({
+        addText: '+',
+        deleteText: '-',
+        addCssClass: "btn btn-success add-form-row",
+        deleteCssClass: "btn btn-danger add-form-row"
+    });
+</script>
+
+{% endblock %}
